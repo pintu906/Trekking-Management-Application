@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+
+{% block title %}Trek{% endblock %}
+
+{% block content %}
+<div class="create-box">
+    <h2>Add New Trek</h2>
+
+    <div class="add-trek-form">
+        <form method="POST" action="/admin/add_trek">
+
+            <div class="row mb-3">
+
+                <!-- FIELD 1 -->
+                <div class="col-md-6">
+                    <div class="row">
+                        <label class="col-sm-3 col-form-label">Trek Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="trek_name" placeholder="Enter trek name">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FIELD 2 -->
+                <div class="col-md-6">
+                    <div class="row">
+                        <label class="col-sm-3 col-form-label">Start-Date</label>
+                        <div class="col-sm-9">
+                            <input type="date" class="form-control" name="start_date" placeholder="DD/MM/YY">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row mb-3">
+
+                <!-- FIELD 1 -->
+                <div class="col-md-6">
+                    <div class="row">
+                        <label class="col-sm-3 col-form-label">Location</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="location" class="form-control" placeholder="Enter location...">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FIELD 2 -->
+                <div class="col-md-6">
+                    <div class="row">
+                        <label class="col-sm-3 col-form-label">End-Date</label>
+                        <div class="col-sm-9">
+                            <input type="date" name="end_date" class="form-control" placeholder="dd/mm/yy">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row mb-3">
+
+                <!-- FIELD 1 -->
+                <div class="col-md-6">
+                    <div class="row">
+                        <label class="col-sm-3 col-form-label">Difficulty</label>
+                        <div class="col-sm-9">
+                            <select class="form-select form-select-sm" name="difficulty"
+                                aria-label="Small select example">
+                                <option value="" disabled selected>---Select--</option>
+                                <option value="Hard">Hard</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Easy">Easy</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FIELD 2 -->
+                <div class="col-md-6">
+                    <div class="row">
+                        <label class="col-sm-3 col-form-label">Assign-Staff</label>
+                        <div class="col-sm-9">
+                            <select class="form-select form-select-sm" name="assign_staff">
+                                <option disabled selected>---Select Staff---</option>
+
+                                {% for s in staff_list %}
+                                <option value="{{ s.id }}">{{ s.name }}</option>
+                                {% endfor %}
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row mb-3">
+
+                <!-- FIELD 1 -->
+                <div class="col-md-6">
+                    <div class="row">
+                        <label class="col-sm-3 col-form-label">Duration(Days)</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="duration" class="form-control" placeholder="Enter Days">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FIELD 2 -->
+                <div class="col-md-6">
+                    <div class="row">
+                        <label class="col-sm-3 col-form-label">Status</label>
+                        <div class="col-sm-9">
+                            <select class="form-select form-select-sm" name="status" aria-label="Small select example">
+                                <option selected>---Select-Status--</option>
+                                <option value="Open">Open</option>
+                                <option value="Closed">Closed</option>
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row mb-3">
+
+                <!-- FIELD 1 -->
+                <div class="col-md-6">
+                    <div class="row">
+                        <label class="col-sm-3 col-form-label">Available Slots</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="available_slots" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FIELD 2 -->
+                <div class="col-md-6">
+                    <div class="row">
+                        <label class="col-sm-3 col-form-label">Decription</label>
+                        <div class="col-sm-9">
+                            <textarea name="description" placeholder="description..."></textarea>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="add-submit d-flex justify-content-end gap-2">
+                <button type="reset" class="btn btn-secondary">Cancel</button>
+                <button type="submit" class="btn btn-success">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

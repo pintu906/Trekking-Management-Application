@@ -1,0 +1,102 @@
+{% extends 'staff_base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="create-box " style="background-color: black;color: white;">
+
+    <!-- 🔥 TREKS SECTION -->
+    {% if treks %}
+        {% for t in treks %}
+
+        <form method="POST" action="/staff/update_trek/{{ t.id }}">
+
+            <div class="container p-3 border rounded mb-4 bg-dark text-white">
+
+                <!-- Heading -->
+                <div class="mb-3 text-center">
+                    <h4>{{ t.trek_name }}</h4>
+                    <hr>
+                </div>
+
+                <div class="row">
+
+                    <!-- LEFT -->
+                    <div class="col-md-6 mb-3">
+
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <label>Location:</label>
+                            <p class="mb-0">{{ t.location }}</p>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <label>Duration:</label>
+                            <p class="mb-0">{{ t.duration }} Days</p>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <label>Start Date:</label>
+                            <p class="mb-0">{{ t.start_date }}</p>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-2">
+                            <label>End Date:</label>
+                            <p class="mb-0">{{ t.end_date }}</p>
+                        </div>
+
+                    </div>
+
+                    <!-- RIGHT -->
+                    <div class="col-md-6 mb-3">
+
+                        <div class="d-flex align-items-center gap-3 mb-2">
+                            <label>Total Slots:</label>
+                            <p class="mb-0">{{ t.available_slots }}</p>
+                        </div>
+
+                        <!-- Editable -->
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <label>Available Slots:</label>
+                            <input type="number" name="available_slots"
+                                value="{{ t.available_slots }}"
+                                class="form-control w-50">
+                        </div>
+
+                        <!-- Editable -->
+                        <div class="d-flex align-items-center gap-2">
+                            <label>Status:</label>
+                            <select name="status" class="form-select w-50">
+                                <option value="Open" {% if t.status=='Open' %}selected{% endif %}>Open</option>
+                                <option value="Closed" {% if t.status=='Closed' %}selected{% endif %}>Closed</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Buttons -->
+                <div class="text-end">
+                    <button type="submit" class="btn btn-success btn-sm">
+                        Update
+                    </button>
+                    <a href="/staff/dashboard" class="btn btn-danger btn-sm">
+                        Cancel
+                    </a>
+                </div>
+
+            </div>
+
+        </form>
+
+        {% endfor %}
+    {% else %}
+        <p class="text-center text-danger">No Treks Assigned</p>
+    {% endif %}
+
+
+     
+     
+
+</div>
+{% endblock %}

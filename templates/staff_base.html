@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="admin-dash">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <div class="container-fluid nav-box">
+                <a class="navbar-brand" href="#">Trekking Management Application</a>
+
+                <!-- Button to open modal -->
+                <div class="admin-logout">
+                   <p>{{ session['staff_name'] }}</p>
+                      <button class="btn btn-outline-success" type="button" data-bs-toggle="modal"
+                        data-bs-target="#resumemodal">
+                        Logout
+                    </button>
+                    <div class="modal fade" id="resumemodal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Confirm Logout</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+
+                                <div class="modal-body">
+                                    Are you sure you want to logout?
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                        Cancel
+                                    </button>
+
+                                    <!-- 🔥 YEH IMPORTANT HAI -->
+                                    <a href="/logout" class="btn btn-danger">Logout</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="line">
+        </div>
+        <div class="admin-main">
+            <div class="admin-main">
+                <!-- LEFT SIDEBAR -->
+                <div class="left-admin">
+
+                     <ul class="admin-menu">
+    <li>
+        <a href="{{ url_for('staff_dashboard') }}">
+            <h4><i class="fa-solid fa-house"></i> Dashboard</h4>
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ url_for('staff_my_treks') }}">
+            <h4><i class="fa-solid fa-mountain"></i>My Treks</h4>
+        </a>
+    </li>
+
+    <li>
+       <a href="{{ url_for('staff_participants') }}">
+            <h4><i class="fa-solid fa-user"></i>Particpants</h4>
+        </a>
+    </li>
+</ul>
+                </div>
+            </div>
+            <div class="right-admin">
+                 {% block content %}
+        {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

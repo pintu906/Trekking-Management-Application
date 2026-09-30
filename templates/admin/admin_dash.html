@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="create-box">
+    <h2>DashBoard</h2>
+    <div class="up-right">
+
+
+        <div class="admin-box">
+            <div>
+                <h6>Total Treks</h6>
+                <h4>{{ total_treks }}</h4>
+            </div>
+            <div>
+                <i class="fa-solid fa-mountain"></i>
+            </div>
+        </div>
+
+        <div class="admin-box">
+            <div>
+                <h6>Total Users</h6>
+                <h4>{{ total_users }}</h4>
+            </div>
+            <div>
+                <i class="fa-solid fa-user"></i>
+            </div>
+        </div>
+
+        <div class="admin-box">
+            <div>
+                <h6>Total Bookings</h6>
+                <h4>{{ total_bookings }}</h4>
+            </div>
+            <div>
+                <i class="fa-solid fa-book"></i>
+            </div>
+        </div>
+
+        <div class="admin-box">
+            <div>
+                <h6>Total Staff</h6>
+                <h4>{{ total_staff }}</h4>
+            </div>
+            <div>
+                <i class="fa-solid fa-user"></i>
+            </div>
+        </div>
+
+
+    </div>
+
+    <h3 style="margin-top: 15px;">Recent Bookongs</h3>
+    <div>
+        <table class="table table-dark table-hover admin-table">
+
+            <thead>
+                <tr>
+                    <th scope="col">Booking ID</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Trek</th>
+                    <th scope="col">Booking Date</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for b in bookings %}
+                <tr>
+                    <th scope="row">B{{ b.id }}</th>
+
+                    <!-- User Name -->
+                    <td>{{ b.user.name if b.user else 'N/A' }}</td>
+
+                    <!-- Trek Name -->
+                    <td>{{ b.trek.trek_name if b.trek else 'N/A' }}</td>
+
+                    <!-- Booking Date -->
+                    <td>
+                        {{ b.created_at.strftime('%d-%m-%Y') if b.created_at else 'N/A' }}
+                    </td>
+
+                    <!-- Status -->
+                    <td><span class="badge bg-success">Booked</span></td>
+                </tr>
+
+                {% else %}
+                <tr>
+                    <td colspan="5" class="text-center">No bookings found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+    <div class="view-all">
+        <a>View All Bookings..</a>
+    </div>
+</div>
+
+{% endblock %}

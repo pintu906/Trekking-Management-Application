@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Trekking Management Application</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <div class="container-fluid nav-box">
+            <a class="navbar-brand" href="#">Trekking Management Application</a>
+
+            <!-- Button to open modal -->
+            <button class="btn btn-outline-success" type="button" data-bs-toggle="modal" data-bs-target="#resumemodal">
+                Admin Login
+            </button>
+        </div>
+    </nav>
+
+    <!-- Modal -->
+    <div class="modal fade" id="resumemodal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered ">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Admin Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form action="/admin_login" method="POST">
+                        <div class="mb-3">
+                            <label>Email</label>
+                            <input type="email" name="email" class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Password</label>
+                            <input type="password" name="password" class="form-control">
+                        </div>
+
+                        <button class="btn btn-success w-100">Login</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="main-dash">
+        <div class="main-content">
+            <div class="left-main">
+                <h1>Welcome to Trekking<br>Management Application</h1>
+                <div class="login-page">
+                    <p>
+                        A Trekking Management Application is a software system designed to manage and organize trekking
+                        activities efficiently. It helps administrators create and manage trekking events by adding
+                        details such as location, date, duration, and cost. Users can browse available treks, register
+                        themselves, and book their preferred trips through the application. The system also allows
+                        administrators to approve or reject bookings, assign guides or staff to specific treks, and keep
+                        track of all participants. Additionally, it stores important data such as user information, trek
+                        details, and booking records in a database. Overall, this application simplifies the entire
+                        process of planning, managing, and participating in trekking activities by providing a
+                        centralized and automated platform.
+                    </p>
+                    <div class="btn-group">
+                        <!-- Register Button -->
+                        <button type="button" class="btn btn-lg btn-primary me-4" data-bs-toggle="modal"
+                            data-bs-target="#registerStaffModal">
+                            Register Staff
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="registerStaffModal" tabindex="-1"
+                            aria-labelledby="registerStaffLabel" aria-hidden="true">
+                            <div class="modal-dialog ">
+                                <div class="modal-content">
+
+                                    <!-- Header -->
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="registerStaffLabel">Register Staff</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+
+                                    <!-- Body -->
+                                    <div class="modal-body">
+                                        <form method="POST" action="/staff/register">
+
+                                            <div class="row mb-3">
+                                                <div class="col">
+                                                    <label>Name</label>
+                                                    <input type="text" class="form-control" name="name" required>
+                                                </div>
+
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col">
+                                                    <label>Email</label>
+                                                    <input type="email" class="form-control" name="email" required>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <div class="col">
+                                                    <label>Password</label>
+                                                    <input type="password" class="form-control" name="password"
+                                                        required>
+                                                </div>
+
+                                            </div>
+
+
+                                            <!-- Footer Buttons -->
+                                            <div
+                                                class="d-flex justify-content-around align-items-center mt-3 flex-wrap">
+
+                                                <!-- Left Side -->
+                                                <div class="d-flex align-items-center justify-content-between ">
+                                                    <p class="mb-1 text-muted"
+                                                        style="padding-bottom: 13px;margin-right: 5px;">Already
+                                                        registered?</p>
+                                                    <button style="width: 100px;" type="button"
+                                                        class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                                        data-bs-target="#staff_loginModal"> Login</button>
+                                                </div>
+
+
+                                                <!-- Right Side -->
+                                                <div class="ms-auto mt-2 mt-md-0">
+                                                    <button style="width: 100px;" type="submit"
+                                                        class="btn btn-success btn-sm">Save</button>
+                                                </div>
+
+                                            </div>
+
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Staff Login Modal (OUTSIDE) -->
+                        <div class="modal fade" id="staff_loginModal" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Staff Login</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <form method="POST" action="/staff/login">
+
+                                            <div class="mb-3">
+                                                <label>Email</label>
+                                                <input type="email" class="form-control" name="email" required>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label>Password</label>
+                                                <input type="password" class="form-control" name="password" required>
+                                            </div>
+
+                                            <button type="submit" class="btn btn-success w-100">Login</button>
+
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- user register -->
+
+                        <!-- REGISTER BUTTON -->
+                        <button type="button" class="btn btn-lg btn-info" data-bs-toggle="modal"
+                            data-bs-target="#registerUserModal">
+                            Register User
+                        </button>
+
+                        <!-- REGISTER MODAL -->
+                        <div class="modal fade" id="registerUserModal" tabindex="-1">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+
+                                    <!-- Header -->
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Register User</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+
+                                    <!-- Body -->
+                                    <div class="modal-body">
+                                        <form method="POST" action="/register_user">
+
+                                            <!-- Name & Email -->
+                                            <div class="row g-3 mb-3">
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Full Name</label>
+                                                    <input type="text" class="form-control" name="name"
+                                                        placeholder="Enter your name" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Email Address</label>
+                                                    <input type="email" class="form-control" name="email"
+                                                        placeholder="Enter your email" required>
+                                                </div>
+                                            </div>
+
+                                            <!-- Password & Phone -->
+                                            <div class="row g-3 mb-3">
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Password</label>
+                                                    <input type="password" class="form-control" name="password"
+                                                        placeholder="Enter password" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Phone Number</label>
+                                                    <input type="text" class="form-control" name="phone"
+                                                        placeholder="Optional">
+                                                </div>
+                                            </div>
+
+                                            <!-- Buttons -->
+                                            <div class="d-flex justify-content-between align-items-center">
+
+                                                <!-- Switch to Login -->
+                                                 
+
+                                                <p>
+                                                    Already have account?
+                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#userLoginModal"
+                                                        data-bs-dismiss="modal">
+                                                        Login
+                                                    </a>
+                                                </p>
+                                                <!-- Register -->
+                                                <button type="submit" class="btn btn-info px-4">
+                                                    Register
+                                                </button>
+                                            </div>
+
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- LOGIN MODAL (Separate) -->
+                        <div class="modal fade" id="userLoginModal" tabindex="-1">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">User Login</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <form method="POST" action="/user/login">
+
+                                            <div class="mb-3">
+                                                <label>Email</label>
+                                                <input type="email" name="email" class="form-control" required>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label>Password</label>
+                                                <input type="password" name="password" class="form-control" required>
+                                            </div>
+
+                                            <button type="submit" class="btn btn-success w-100">Login</button>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="right-main">
+
+                <div class="right-img">
+                    <img src="{{ url_for('static', filename='assets/Mountaineering-Trekking.webp') }}">
+                </div>
+            </div>
+        </div>
+        <div class="blog-dash container">
+
+            <!-- Card 1 (Normal - Image Left) -->
+            <div class="card mb-3 bg-black text-white" style="max-width: 900px;">
+                <div class="row g-0 align-items-center">
+                    <div class="col-md-4">
+                        <img src="{{ url_for('static', filename='assets/images-1.jpg') }}"
+                            class="img-fluid rounded-start h-100" style="object-fit: cover;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Forest Trek</h5>
+                            <p class="card-text">A forest trek is an adventurous journey through dense forests and
+                                natural landscapes, offering a unique experience of exploring nature up close. It allows
+                                trekkers to walk along scenic trails surrounded by tall trees, fresh air, and the sounds
+                                of wildlife such as birds and insects. Forest trekking is not only exciting but also
+                                refreshing, as it provides a peaceful escape from busy city life. It helps improve
+                                physical fitness, reduces stress, and gives an opportunity to connect with nature.
+                                Overall, a forest trek is a perfect combination of adventure, relaxation, and natural
+                                beauty.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 (Reverse - Image Right) -->
+            <div class="card mb-3 bg-black text-white" style="max-width: 900px; margin-left: 350px;">
+                <div class="row g-0 align-items-center flex-row-reverse">
+                    <div class="col-md-4">
+                        <img src="{{ url_for('static', filename='assets/images-2.jpg') }}"
+                            class="img-fluid rounded-end h-100" style="object-fit: cover;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Mountain Trek</h5>
+                            <p class="card-text">A mountain trek is an exciting outdoor activity that involves walking
+                                and climbing through mountainous regions. It offers breathtaking views of high peaks,
+                                valleys, and natural landscapes, making it a popular choice for adventure lovers.
+                                Mountain trekking requires physical strength, endurance, and proper planning, as the
+                                terrain can be steep and challenging. It also provides an opportunity to experience
+                                fresh air, scenic beauty, and a sense of achievement after reaching higher altitudes.
+                                Additionally, it helps improve fitness, boosts confidence, and allows people to connect
+                                with nature in a peaceful and adventurous way.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 (Normal) -->
+            <div class="card mb-3 bg-black text-white" style="max-width: 900px;">
+                <div class="row g-0 align-items-center">
+                    <div class="col-md-4">
+                        <img src="{{ url_for('static', filename='assets/img.jpg') }}"
+                            class="img-fluid rounded-start h-100" style="object-fit: cover;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">River Trek</h5>
+                            <p class="card-text">A river trek is an adventurous activity that involves walking along or
+                                through river paths, often crossing streams, rocks, and shallow water. It provides a
+                                unique experience of exploring flowing water, natural surroundings, and scenic
+                                landscapes. River trekking can include walking beside rivers, wading through water, or
+                                even navigating small waterfalls and rocky terrains. It is both exciting and refreshing,
+                                as trekkers enjoy cool water, fresh air, and beautiful views. Additionally, it helps
+                                improve balance, strength, and endurance while offering a fun and thrilling way to
+                                connect with nature.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-3 bg-black text-white" style="max-width: 900px; margin-left: 350px;">
+                <div class="row g-0 align-items-center flex-row-reverse">
+                    <div class="col-md-4">
+                        <img src="{{ url_for('static', filename='assets/images.jpg') }}"
+                            class="img-fluid rounded-end h-100" style="object-fit: cover;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Snow Trek</h5>
+                            <p class="card-text">A snow trek is an exciting adventure that takes place in cold, snowy
+                                mountain regions during winter. It offers a unique experience of walking on snow-covered
+                                trails, surrounded by beautiful white landscapes and frozen lakes. Trekkers need proper
+                                warm clothing, good shoes, and sometimes special equipment like crampons to walk safely
+                                on slippery surfaces. Snow trekking is not only physically challenging but also mentally
+                                refreshing, as it allows people to enjoy peaceful nature away from busy city life. It is
+                                perfect for those who love adventure and want to experience the beauty of winter in the
+                                mountains.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-3 bg-black text-white" style="max-width: 900px;">
+                <div class="row g-0 align-items-center">
+                    <div class="col-md-4">
+                        <img src="{{ url_for('static', filename='assets/kedar.jpg') }}"
+                            class="img-fluid rounded-start h-100" style="object-fit: cover;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Kedarnath Temple</h5>
+                            <p class="card-text">The Kedarnath Temple is a famous Hindu temple of Lord Shiva. It is
+                                located in the mountains of Uttarakhand.
+
+                                It is one of the important temples of the Char Dham Yatra. Every year, many people visit
+                                this temple.
+
+                                To reach the temple, people have to do a trek of about 16 km from Gaurikund. The temple
+                                is open only for a few months because of heavy snow in winter.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <footer class="footer">
+            <div class="icon-box">
+                <span><i class="fa-brands fa-chrome"></i>
+                    <label>Chorme</label></span>
+                <span> <i class="fa-brands fa-youtube"></i>
+                    <label>You Tube</label></span>
+                <span>
+                    <i class="fa-brands fa-facebook"></i>
+                    <label>Facebook</label>
+                </span>
+                <span>
+                    <i class="fa-brands fa-linkedin"></i>
+                    <label>Linkedin</label>
+                </span>
+
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

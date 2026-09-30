@@ -1,0 +1,87 @@
+{% extends 'staff_base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="create-box">
+    <h2>My Dashboard</h2>
+
+    <!-- 🔥 Top Cards -->
+    <div class="up-right d-flex gap-3 flex-wrap">
+
+        <div class="admin-box p-3" style="width: 300px; display: flex; justify-content: space-around; align-items:center;">
+            <div>
+                <h6>Assigned Treks</h6>
+                <h4>{{ total_treks }}</h4>
+            </div>
+            <div>
+                <i class="fa-solid fa-mountain fa-2x"></i>
+            </div>
+        </div>
+
+        <div class="admin-box p-3" style="width: 300px; display: flex; justify-content: space-around; align-items:center;">
+            <div>
+                <h6>Total Participants</h6>
+                <h4>{{ total_participants }}</h4>
+            </div>
+            <div>
+                <i class="fa-solid fa-user fa-2x"></i>
+            </div>
+        </div>
+
+        <div class="admin-box p-3" style="width: 300px; display: flex; justify-content: space-around; align-items:center;">
+            <div>
+                <h6>Open Treks</h6>
+                <h4>{{ open_treks }}</h4>
+            </div>
+            <div>
+                <i class="fa-solid fa-book fa-2x"></i>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 🔥 Table -->
+    <h3 style="margin-top: 20px;">My Assigned Treks</h3>
+
+    <div class="table-responsive">
+        <table class="table table-dark table-hover admin-table">
+            <thead>
+                <tr>
+                    <th>Trek Name</th>
+                    <th>Location</th>
+                    <th>Duration</th>
+                    <th>Slots</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for t in treks %}
+                <tr>
+                    <td>{{ t.trek_name }}</td>
+                    <td>{{ t.location }}</td>
+                    <td>{{ t.duration }} days</td>
+                    <td>{{ t.available_slots }}</td>
+                    <td>
+                        {% if t.status == 'Open' %}
+                            <span class="badge bg-success">Open</span>
+                        {% else %}
+                            <span class="badge bg-danger">Closed</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 🔥 View All Button -->
+    <div class="view-all mt-3">
+        <a  class="btn btn-info btn-sm">
+            View All Bookings
+        </a>
+    </div>
+
+</div>
+{% endblock %}

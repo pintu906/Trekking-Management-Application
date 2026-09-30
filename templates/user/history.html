@@ -1,0 +1,61 @@
+{% extends 'userbase.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="create-box">
+    <h3>My History</h3>
+    <div class="table-responsive" style="margin-top: 20px;">
+        <table class="table table-dark table-hover admin-table">
+            <thead>
+                <tr>
+                    <th>Trek Name</th>
+                    <th>Trek Dates</th>
+                    <th>Completed On</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for b in bookings %}
+                <tr>
+                    <!-- Trek Name -->
+                    <td>{{ b.trek.trek_name if b.trek else 'N/A' }}</td>
+
+                    <!-- Trek Dates -->
+                    <td>
+                        {{ b.trek.start_date.strftime('%d-%m-%Y') if b.trek and b.trek.start_date else 'N/A' }}
+                        -
+                        {{ b.trek.end_date.strftime('%d-%m-%Y') if b.trek and b.trek.end_date else 'N/A' }}
+                    </td>
+
+                    <!-- Completed On (ya booking date use kar sakta hai) -->
+                    <td>
+                        {{ b.created_at.strftime('%d-%m-%Y') if b.created_at else 'N/A' }}
+                    </td>
+
+                    <!-- Status -->
+                    <td>
+                        <span class="badge bg-success">
+                            {{ b.status if b.status else 'Completed' }}
+                        </span>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" class="text-center">No records found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 🔥 View All Button -->
+    <div class="view-all mt-3">
+        <a class="btn btn-info btn-sm">
+            View All Bookings
+        </a>
+    </div>
+
+</div>
+{% endblock %}

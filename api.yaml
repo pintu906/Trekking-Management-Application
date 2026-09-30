@@ -1,0 +1,149 @@
+openapi: 3.0.0
+info:
+title: Trekking Management Application API
+version: 1.0.0
+description: API documentation for Trekking Management System
+
+paths:
+
+/admin_login:
+post:
+summary: Admin login
+responses:
+'200':
+description: Admin logged in
+
+/admin/treks:
+get:
+summary: Get all treks (with search)
+responses:
+'200':
+description: List of treks
+
+/admin/add_trek:
+post:
+summary: Add a new trek
+responses:
+'200':
+description: Trek added successfully
+
+/edit_trek/{id}:
+post:
+summary: Edit trek details
+parameters:
+- name: id
+in: path
+required: true
+responses:
+'200':
+description: Trek updated
+
+/delete_trek/{id}:
+post:
+summary: Delete a trek
+parameters:
+- name: id
+in: path
+required: true
+responses:
+'200':
+description: Trek deleted
+
+/admin/staff:
+get:
+summary: View staff list
+responses:
+'200':
+description: Staff data
+
+/approve_staff/{id}:
+get:
+summary: Approve staff
+parameters:
+- name: id
+in: path
+required: true
+responses:
+'200':
+description: Staff approved
+
+/reject_staff/{id}:
+get:
+summary: Reject staff
+parameters:
+- name: id
+in: path
+required: true
+responses:
+'200':
+description: Staff rejected
+
+/staff/register:
+post:
+summary: Staff registration
+responses:
+'200':
+description: Staff registered
+
+/staff/login:
+post:
+summary: Staff login
+responses:
+'200':
+description: Staff logged in
+
+/staff/dashboard:
+get:
+summary: Staff dashboard
+responses:
+'200':
+description: Staff dashboard data
+
+/register_user:
+post:
+summary: User registration
+responses:
+'200':
+description: User registered
+
+/user/login:
+post:
+summary: User login
+responses:
+'200':
+description: User logged in
+
+/user/dashboard:
+get:
+summary: User dashboard with filters
+responses:
+'200':
+description: User dashboard data
+
+/book_trek:
+post:
+summary: Book a trek
+responses:
+'200':
+description: Booking successful
+
+/my_bookings:
+get:
+summary: Get user bookings
+responses:
+'200':
+description: Booking list
+
+/booking_history:
+get:
+summary: Get booking history
+responses:
+'200':
+description: Booking history
+
+/logout:
+get:
+summary: Logout user/admin/staff
+responses:
+'200':
+description: Logged out

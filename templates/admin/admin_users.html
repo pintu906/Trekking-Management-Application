@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}All Users{% endblock %}
+
+{% block content %}
+<div class="create-box">
+    <h2>Users</h2>
+    <div class="search-box" style="width: 30%; color: white;">
+        <form class="d-flex" method="GET">
+            <input class="form-control me-2 custom-search" type="search" name="search" placeholder="Search User Names..."
+                value="{{ request.args.get('search','') }}" />
+        </form>
+    </div>
+    <div class="table-responsive" style="margin-top: 20px;">
+        <table class="table table-dark table-hover admin-table">
+
+
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>User Name</th>
+                    <th>Email</th>
+                    <th>Total Bookings</th>
+                    <th>Last Booking</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for u in users %}
+                <tr>
+
+                    <!-- ID -->
+                    <td>{{ u.id }}</td>
+
+                    <!-- Name -->
+                    <td>{{ u.name }}</td>
+
+                    <!-- Email -->
+                    <td>{{ u.email }}</td>
+
+                    <!-- Total Bookings -->
+                    <td>
+                        {{ u.bookings|length if u.bookings else 0 }}
+                    </td>
+
+                    <!-- Last Booking Date -->
+                    <td>
+                        {% if u.bookings %}
+                        {{ u.bookings[-1].created_at.strftime('%d-%m-%Y') }}
+                        {% else %}
+                        N/A
+                        {% endif %}
+                    </td>
+
+                </tr>
+
+                {% else %}
+                <tr>
+                    <td colspan="5" class="text-center">
+                        No users found
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+
+    <!-- 🔥 View All Button -->
+    <div class="view-all mt-3">
+        <a class="btn btn-info btn-sm">
+            View All Bookings
+        </a>
+    </div>
+
+</div>
+
+
+ 
+
+{% endblock %}

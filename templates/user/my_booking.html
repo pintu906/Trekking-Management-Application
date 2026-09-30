@@ -1,0 +1,94 @@
+{% extends 'userbase.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="create-box">
+    <h3>My Bookings</h3>
+    <div class="table-responsive" style="margin-top: 20px;">
+        <table class="table table-dark table-hover admin-table">
+            <thead>
+                <tr>
+                    <th>Trek Name</th>
+                    <th>Booking Date</th>
+                    <th>Trek Dates</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+    {% for b in bookings %}
+    <tr>
+        <!-- Trek Name -->
+        <td>{{ b.trek.trek_name if b.trek else 'N/A' }}</td>
+
+        <!-- Booking Date -->
+        <td>
+            {{ b.created_at.strftime('%d-%m-%Y') if b.created_at else 'N/A' }}
+        </td>
+
+        <!-- Trek Dates -->
+        <td>
+            {{ b.trek.start_date.strftime('%d-%m-%Y') if b.trek and b.trek.start_date else 'N/A' }}
+            -
+            {{ b.trek.end_date.strftime('%d-%m-%Y') if b.trek and b.trek.end_date else 'N/A' }}
+        </td>
+
+        <!-- Status -->
+        <td>
+            <span class="badge bg-success">
+                {{ b.status if b.status else 'Booked' }}
+            </span>
+        </td>
+
+        <!-- Action -->
+        <td>
+            <button class="btn btn-sm btn-info" data-bs-toggle="modal"
+                data-bs-target="#viewModal{{ b.id }}">
+                View More
+            </button>
+        </td>
+    </tr>
+
+    <!-- Modal -->
+    <div class="modal fade" id="viewModal{{ b.id }}" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        {{ b.trek.trek_name if b.trek else 'Trek Details' }}
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p><strong>Location:</strong> {{ b.trek.location }}</p>
+                    <p><strong>Difficulty:</strong> {{ b.trek.difficulty }}</p>
+                    <p><strong>Duration:</strong> {{ b.trek.duration }} days</p>
+                    <p><strong>Description:</strong> {{ b.trek.description }}</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    {% else %}
+    <tr>
+        <td colspan="5" class="text-center">No bookings found</td>
+    </tr>
+    {% endfor %}
+</tbody>
+        </table>
+    </div>
+
+    <!-- 🔥 View All Button -->
+    <div class="view-all mt-3">
+        <a class="btn btn-info btn-sm">
+            View All Bookings
+        </a>
+    </div>
+
+</div>
+{% endblock %}

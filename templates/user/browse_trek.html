@@ -1,0 +1,105 @@
+{% extends 'userbase.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="create-box">
+    <h6>All Treks</h6>
+
+    
+    
+
+
+    <div class="table-responsive" style="margin-top: 20px;">
+        <table class="table table-dark table-hover admin-table">
+            <thead>
+                <tr>
+                    <th>Trek Name</th>
+                    <th>Location</th>
+                    <th>Difficulty</th>
+                    <th>Duration</th>
+                    <th>Available Slots</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for t in treks %}
+                <tr>
+                    <td>{{ t.trek_name }}</td>
+                    <td>{{ t.location }}</td>
+                    <td>{{ t.difficulty }}</td>
+                    <td>{{ t.duration }} days</td>
+                    <td>{{ t.available_slots }}</td>
+                    <td>
+                        <button class="btn btn-sm btn-info" data-bs-toggle="modal"
+                            data-bs-target="#bookModal{{ t.id }}">
+                            Book Now
+                        </button>
+                    </td>
+                </tr>
+
+                <!-- Modal (IMPORTANT: loop ke andar) -->
+                <div class="modal fade" id="bookModal{{ t.id }}" tabindex="-1">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title">Book Trek - {{ t.trek_name }}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+
+                            <!-- ✅ FORM START -->
+                            <form action="/book_trek" method="POST">
+                                <div class="modal-body">
+
+                                    <!-- 🔹 Hidden fields (backend ke liye) -->
+                                    <input type="hidden" name="trek_id" value="{{ t.id }}">
+                                    <input type="hidden" name="trek_name" value="{{ t.trek_name }}">
+                                    <input type="hidden" name="location" value="{{ t.location }}">
+                                    <input type="hidden" name="difficulty" value="{{ t.difficulty }}">
+                                    <input type="hidden" name="duration" value="{{ t.duration }}">
+                                    <input type="hidden" name="available_slots" value="{{ t.available_slots }}">
+                                    <input type="hidden" name="assign_staff" value="{{ t.assign_staff }}">
+                                    <input type="hidden" name="status" value="{{ t.status }}">
+                                    <input type="hidden" name="description" value="{{ t.description }}">
+
+                                    <!-- 🔹 Show data -->
+                                    <p><strong>Location:</strong> {{ t.location }}</p>
+                                    <p><strong>Difficulty:</strong> {{ t.difficulty }}</p>
+                                    <p><strong>Duration:</strong> {{ t.duration }} days</p>
+                                    <p><strong>Available Slots:</strong> {{ t.available_slots }}</p>
+                                    <p><strong>Status:</strong> {{ t.status }}</p>
+                                    <p><strong>Description:</strong> {{ t.description }}</p>
+
+                                    <p><strong>Start Date:</strong> {{ t.start_date }}</p>
+                                    <p><strong>End Date:</strong> {{ t.end_date }}</p>
+
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success">
+                                        Confirm Booking
+                                    </button>
+                                </div>
+                            </form>
+                            <!-- ✅ FORM END -->
+
+                        </div>
+                    </div>
+                </div>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 🔥 View All Button -->
+    <div class="view-all mt-3">
+        <a class="btn btn-info btn-sm">
+            View All Bookings
+        </a>
+    </div>
+
+</div>
+{% endblock %}
